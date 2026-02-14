@@ -1,0 +1,24 @@
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+input {
+    padding: 1em;
+    min-width: 250px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 1em 2em;
+    border-radius: 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+}
