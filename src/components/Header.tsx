@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext"
 
 const Header = () => {
 
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
 
   return (
     <header className={styles.header}>
@@ -13,7 +13,7 @@ const Header = () => {
         <li><NavLink to="/admin">Admin</NavLink></li>
         <li>
           {
-            !user ? <NavLink to="/login">Logga in</NavLink> : <button className={styles.logoutButton}>Logga ut</button>
+            !user ? <NavLink to="/login">Logga in</NavLink> : <button onClick={logout} className={styles.logoutButton}>Logga ut</button>
           }
         </li>
       </ul>

@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, type ReactNode } from "react";
+import { createContext, useState, useContext, useEffect, type ReactNode } from "react";
 import type { User, LoginCredentials, AuthResponse, AuthContextType } from "../types/auth.types";
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -37,6 +37,35 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         localStorage.removeItem("token");
         setUser(null);
     }
+
+    // Validera token
+    const validateToken = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            return;
+        }
+
+        try {
+            const res = await fetch("http://localhost:5000/api/auth/validate", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            if (!res.ok) {
+                throw new Error("Token är ogiltig.");
+            }
+            const data = await res.json() as User;
+            setUser(data);
+        } catch (error) {
+            localStorage.removeItem("token");
+            setUser(null);
+        }
+    }
+
+    useEffect(() => {
+        validateToken();
+    }, []);
 
     return (
         <AuthContext.Provider value ={{ user, login, logout }}>
