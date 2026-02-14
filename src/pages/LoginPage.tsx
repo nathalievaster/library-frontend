@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import styles from "./Login.module.css"
 import { useAuth } from "../context/AuthContext"
@@ -11,7 +11,14 @@ const LoginPage = () => {
   const [error, setError] = useState("")
 
   const navigate = useNavigate()
-  const { login } = useAuth()
+  const { login, user } = useAuth()
+
+  // Kontrollera användare
+  useEffect(() => {
+    if (user) {
+      navigate("/")
+    }
+  }, [user, navigate])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()

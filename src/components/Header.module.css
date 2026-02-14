@@ -16,3 +16,12 @@ ul {
 li {
     text-decoration: none;
 }
+
+.logoutButton {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    cursor: pointer;
+}
