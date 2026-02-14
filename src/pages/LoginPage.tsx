@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styles from "./Login.module.css"
+import { useAuth } from "../context/AuthContext"
 
 const LoginPage = () => {
 
@@ -8,42 +9,34 @@ const LoginPage = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
+
   const navigate = useNavigate()
+  const { login } = useAuth()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("");
 
-    const res = await fetch("http://localhost:5000/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ username, password })
-    })
-
-    const data = await res.json()
-
-    if (res.ok) {
-      // Spara token i localStorage
-      localStorage.setItem("token", data.token)
-      // Navigera till startsidan
+    try {
+      await login({username, password})
       navigate("/")
-    } else {
-      alert("Inloggning misslyckades: " + data.message)
+    } catch (error) {
+      setError("Felaktigt användarnamn eller lösenord")
     }
 
   }
-    return (
-      <>
-        <h1>Logga in</h1>
-        <form onSubmit={handleLogin}>
-          <input type="text" placeholder="Användarnamn" value={username} onChange={e => setUsername(e.target.value)} required />
-          <input type="password" placeholder="Lösenord" value={password} onChange={e => setPassword(e.target.value)} required />
-          <button type="submit">Logga in</button>
-        </form>
-      </>
-    )
-  }
+  return (
+    <>
+      <h1>Logga in</h1>
+      <form className={styles.loginForm} onSubmit={handleLogin}>
+        {error && <p className={styles.error}>{error}</p>}
+        <input type="text" placeholder="Användarnamn" value={username} onChange={e => setUsername(e.target.value)}/>
+        <input type="password" placeholder="Lösenord" value={password} onChange={e => setPassword(e.target.value)}/>
+        <button type="submit">Logga in</button>
+      </form>
+      
+    </>
+  )
+}
 
 export default LoginPage
