@@ -7,10 +7,12 @@ const LoginPage = () => {
   // State för att hålla reda på användarnamn och lösenord
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
   const navigate = useNavigate()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError("");
 
     const res = await fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
