@@ -4,6 +4,11 @@ import type { Book } from "../types/book.types"
 const AdminPage = () => {
   const [books, setBooks] = useState<Book[]>([])
   const [editingId, setEditingId] = useState<string | null>(null)
+  const [errors, setErrors] = useState({
+  title: "",
+  author: "",
+  publishedYear: ""
+})
   const [editData, setEditData] = useState({
     title: "",
     author: "",
@@ -34,6 +39,29 @@ const AdminPage = () => {
   // Skapa bok
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    let newErrors = {
+      title: "",
+      author: "",
+      publishedYear: ""
+    }
+
+    if (!newBook.title.trim()) {
+      newErrors.title = "Titel krävs."
+    }
+    if (!newBook.author.trim()) {
+      newErrors.author = "Författare krävs."
+    }
+
+    if (!newBook.publishedYear.trim()) {
+      newErrors.publishedYear = "Utgivningsår krävs."
+    }
+
+    setErrors(newErrors)
+
+    if (newErrors.title || newErrors.author || newErrors.publishedYear) {
+      return
+    }
 
     await fetch("http://localhost:5000/api/books", {
       method: "POST",
@@ -102,12 +130,14 @@ const AdminPage = () => {
           value={newBook.title}
           onChange={e => setNewBook({ ...newBook, title: e.target.value })}
         />
+        {errors.title && <p style={{ color: "red" }}>{errors.title}</p>}
 
         <input
           placeholder="Författare"
           value={newBook.author}
           onChange={e => setNewBook({ ...newBook, author: e.target.value })}
         />
+        {errors.author && <p style={{ color: "red" }}>{errors.author}</p>}
 
         <input
           placeholder="Beskrivning"
@@ -120,6 +150,7 @@ const AdminPage = () => {
           value={newBook.publishedYear}
           onChange={e => setNewBook({ ...newBook, publishedYear: e.target.value })}
         />
+        {errors.publishedYear && <p style={{ color: "red" }}>{errors.publishedYear}</p>}
 
         <button type="submit">Skapa</button>
       </form>
