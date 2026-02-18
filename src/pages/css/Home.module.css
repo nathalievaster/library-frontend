@@ -1,6 +1,13 @@
-section {
+.books-section {
+    margin: 0 auto;
     padding: 20px;
-    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.booksGrid {
+    display: flex;
+    gap: 2em;
 }
 
 article {
@@ -8,5 +15,6 @@ article {
     background-color: #f9f9f9;
     border-radius: 8px;
     max-width: 500px;
+    width: 100%;
     margin: 1.5em auto;
 }

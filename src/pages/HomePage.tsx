@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import type { Book } from "../types/book.types"
 import styles from "./css/Home.module.css"
 
@@ -39,17 +39,20 @@ const HomePage = () => {
     <>
       <h1>Startsidan</h1>
       <p>Välkommen till min bok-logg! Här delar jag med mig av böcker jag läst.</p>
-      <section>
+      <section className={styles["books-section"]}>
         <h2>Böcker jag läst</h2>
-        {books.map(book => (
 
-          <article key={book._id} className={styles.bookCard}>
-            <h2>{book.title}</h2>
-            <p><strong>Författare:</strong> {book.author}</p>
-            {book.description && <p><strong>Beskrivning:</strong> {book.description}</p>}
-            {book.publishedYear && <p><strong>Utgivningsår:</strong> {book.publishedYear}</p>}
-          </article>
-      ))}
+        <div className={styles.booksGrid}>
+          {books.map(book => (
+
+            <article key={book._id} className={styles.bookCard}>
+              <h3>{book.title}</h3>
+              <p><strong>Författare:</strong> {book.author}</p>
+              {book.description && <p><strong>Beskrivning:</strong> {book.description}</p>}
+              {book.publishedYear && <p><strong>Utgivningsår:</strong> {book.publishedYear}</p>}
+            </article>
+          ))}
+        </div>
       </section>
     </>
   )
