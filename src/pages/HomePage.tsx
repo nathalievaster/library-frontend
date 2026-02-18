@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import type { Book } from "../types/book.types"
 import styles from "./css/Home.module.css"
+import { useNavigate } from "react-router-dom"
 
 const HomePage = () => {
 
@@ -8,6 +9,8 @@ const HomePage = () => {
   const [books, setBooks] = useState<Book[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  const navigate = useNavigate()
 
   // useEffect för att hämta böcker när komponenten mountas
   useEffect(() => {
@@ -36,6 +39,7 @@ const HomePage = () => {
   if (error) return <p>{error}</p>
 
   return (
+
     <>
       <h1>Startsidan</h1>
       <p>Välkommen till min bok-logg! Här delar jag med mig av böcker jag läst.</p>
@@ -44,11 +48,14 @@ const HomePage = () => {
 
         <div className={styles.booksGrid}>
           {books.map(book => (
-
-            <article key={book._id} className={styles.bookCard}>
+            <article
+              key={book._id}
+              className={styles.bookCard}
+              onClick={() => navigate(`/books/${book._id}`)}
+            >
               <h3>{book.title}</h3>
               <p><strong>Författare:</strong> {book.author}</p>
-              {book.description && <p><strong>Beskrivning:</strong> {book.description}</p>}
+              {book.description && <p><strong>Beskrivning:</strong> {book.description}</p>} 
               {book.publishedYear && <p><strong>Utgivningsår:</strong> {book.publishedYear}</p>}
             </article>
           ))}

@@ -18,3 +18,9 @@ article {
     width: 100%;
     margin: 1.5em auto;
 }
+
+.bookLink {
+  text-decoration: none;
+  color: inherit;
+  font-weight: lighter  ;
+}
