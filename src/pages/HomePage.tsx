@@ -1,5 +1,6 @@
 import { use, useEffect, useState } from "react"
 import type { Book } from "../types/book.types"
+import styles from "./css/Home.module.css"
 
 const HomePage = () => {
 
@@ -36,16 +37,20 @@ const HomePage = () => {
 
   return (
     <>
-      <h1>Homepage</h1>
+      <h1>Startsidan</h1>
+      <p>Välkommen till min bok-logg! Här delar jag med mig av böcker jag läst.</p>
+      <section>
+        <h2>Böcker jag läst</h2>
+        {books.map(book => (
 
-      {books.map(book => (
-        <article key={book._id}>
-          <h2>{book.title}</h2>
-          <p><strong>Författare:</strong> {book.author}</p>
-          {book.description && <p><strong>Beskrivning:</strong> {book.description}</p>}
-          {book.publishedYear && <p><strong>Utgivningsår:</strong> {book.publishedYear}</p>}
-        </article>
+          <article key={book._id} className={styles.bookCard}>
+            <h2>{book.title}</h2>
+            <p><strong>Författare:</strong> {book.author}</p>
+            {book.description && <p><strong>Beskrivning:</strong> {book.description}</p>}
+            {book.publishedYear && <p><strong>Utgivningsår:</strong> {book.publishedYear}</p>}
+          </article>
       ))}
+      </section>
     </>
   )
 }
