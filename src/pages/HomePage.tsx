@@ -51,7 +51,6 @@ const HomePage = () => {
           {books.map(book => (
             <article
               key={book._id}
-              className={styles.bookCard}
               onClick={() => navigate(`/books/${book._id}`)}
             >
               <h3>{book.title}</h3>

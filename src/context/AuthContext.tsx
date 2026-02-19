@@ -9,8 +9,10 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     
+    // State för att hålla reda på den inloggade användaren
     const [user, setUser] = useState<User | null>(null);
 
+    // Logga in användaren genom att skicka credentials till backend och spara token o user i state
     const login = async (credentials: LoginCredentials) => {
 
         try {
@@ -38,7 +40,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUser(null);
     }
 
-    // Validera token
+    // Validera token för att behålla användarens inloggning även efter uppdatering av sidan
     const validateToken = async () => {
         const token = localStorage.getItem("token");
         if (!token) {
