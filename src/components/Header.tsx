@@ -8,12 +8,12 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <ul>
-        <li><NavLink to="/">Startsida</NavLink></li>
-        <li><NavLink to="/admin">Admin</NavLink></li>
+      <ul className={styles.navList}>
+        <li><NavLink to="/" className={styles.navLink}>Startsida</NavLink></li>
+        <li><NavLink to="/admin" className={styles.navLink}>Admin</NavLink></li>
         <li>
           {
-            !user ? <NavLink to="/login">Logga in</NavLink> : <button onClick={logout} className={styles.logoutButton}>Logga ut</button>
+            !user ? <NavLink to="/login" className={styles.navLink}>Logga in</NavLink> : <button onClick={logout} className={styles.logoutButton}>Logga ut</button>
           }
         </li>
       </ul>

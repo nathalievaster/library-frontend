@@ -1,4 +1,4 @@
-header {
+.header {
     background-color: #333;
     color: white;
     padding: 1rem;
@@ -6,24 +6,24 @@ header {
     display: flex;
 }
 
-ul {
+.navList {
     list-style: none;
     display: flex;
     gap: 1rem;
     margin-left: auto;
 }
 
+.navLink {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .logoutButton {
-    background-color: #ff0000;
+    background-color: red;
     color: white;
     border: none;
     padding: 0.5em 1.4em;
     border-radius: 20px;
     cursor: pointer;
-}
-
-a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
 }

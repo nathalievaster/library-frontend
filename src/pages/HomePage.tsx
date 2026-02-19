@@ -10,6 +10,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
+  // Använder navigate för att navigera till bokdetaljer
   const navigate = useNavigate()
 
   // useEffect för att hämta böcker när komponenten mountas
